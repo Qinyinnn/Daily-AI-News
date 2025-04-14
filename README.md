@@ -2,6 +2,8 @@
 
 <img width="1393" alt="Screenshot 2025-04-14 at 19 58 57" src="https://github.com/user-attachments/assets/287d30df-c799-400c-850f-6943077f1c9d" />
 
+
+
 A Flask-based web application that aggregates and summarizes the latest AI news from top tech publications, featuring an elegant newspaper-style UI with Apple Intelligence-inspired design.
 
 ## Features
