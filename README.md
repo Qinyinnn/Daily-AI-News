@@ -37,18 +37,18 @@
    git clone https://github.com/yourusername/daily-ai-news.git
    cd daily-ai-news
 2. Set up a virtual environment:
-   python -m venv venv
+   ```python -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 3. Install dependencies:
-   pip install -r requirements.txt
+   ```pip install -r requirements.txt # or pip3 install ...
 4. Create a .env file with your API key:
-   DEEPSEEK_API_KEY=your_api_key_here
+   ```DEEPSEEK_API_KEY=your_api_key_here
 
 ## Usage
 1. Run the Flask application:
-   python app.py
+   ```python app.py
 2. Access the web interface at:
-   http://localhost:5001
+   ```http://localhost:5001
 3. API Endpoints:
    Get news: GET /api/news
    Explain article: POST /api/explain (requires JSON with "url")
