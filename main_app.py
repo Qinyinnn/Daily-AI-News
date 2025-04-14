@@ -414,6 +414,12 @@ def fetch_ai_news():
         "Ars Technica": []
     }
     
+<<<<<<< HEAD
+=======
+    # Debug prints
+    print("\n--- Starting news fetch ---")
+    
+>>>>>>> 129a4034c7ded0a3b32a5b50eabe0af7bf3ddabf
     # CNN Tech
     print("Fetching CNN Tech news...")
     cnn_articles = fetch_tech_news_from_cnn()
@@ -594,4 +600,8 @@ if __name__ == '__main__':
      # debug=True can help auto-reloads on Code Change & detailed error page & verbose logging
      # Reminder: Use Debug Mode for Development Only, bc it’s a big security risk because:
      # Anyone can see errors and potentially run code in your app if they get to the debugger.
+<<<<<<< HEAD
     app.run(host='0.0.0.0', port=5001, debug=True) 
+=======
+    app.run(host='0.0.0.0', port=5001, debug=True) 
+>>>>>>> 129a4034c7ded0a3b32a5b50eabe0af7bf3ddabf
