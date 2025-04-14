@@ -4,7 +4,7 @@
 
 
 
-## Main Funciton
+## Main Function
 
 - 🌟 A Flask-based web application that aggregates and summarizes the latest AI news from top tech publications.
 
