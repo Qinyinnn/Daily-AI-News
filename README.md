@@ -4,7 +4,9 @@
 
 
 
-🌟 A Flask-based web application that aggregates and summarizes the latest AI news from top tech publications.
+## Main Funciton
+
+- 🌟 A Flask-based web application that aggregates and summarizes the latest AI news from top tech publications.
 
 ## Features
 
@@ -61,8 +63,8 @@
    http://localhost:5001
    ```
 3. API Endpoints:
-   Get news: GET /api/news
-   Explain article: POST /api/explain (requires JSON with "url")
+- Get news: GET /api/news
+- Explain article: POST /api/explain (requires JSON with "url")
 
 ## Configuration
 Environment variables:
