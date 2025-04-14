@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily AI News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Playfair+Display:wght@400;700&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gradient-start: #ff3b30;
+            --gradient-mid: #ff9500;
+            --gradient-end: #0071ff;
+            --paper-color: #fafafa;
+            --text-color: #1a1a1a;
+            --border-color: #e0e0e0;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--paper-color) 0%, #f0f0f0 100%);
+            font-family: 'Source Serif Pro', serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding: 0;
+            margin: 0;
+        }
+
+        .newspaper-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .newspaper-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+        }
+
+        .newspaper {
+            padding: 30px 50px;
+            position: relative;
+        }
+
+        .newspaper-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            position: relative;
+            color: black; /* 改为黑色文字 */
+        }
+
+        .newspaper-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: inline-block;
+            color: black; /* 显式指定黑色，避免透明 */
+        }
+
+        .newspaper-header h1::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 25%;
+            right: 25%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+        }
+
+        .newspaper-header .subheading {
+           font-family: 'Libre Baskerville', serif;
+           font-size: 20px;
+           margin-top: 10px;
+           color: #444;
+           font-style: italic;
+        }
+
+
+        .newspaper-header .date {
+            font-size: 18px;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .news-source {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%) 1;
+        }
+
+        .news-item {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+            position: relative;
+        }
+
+        .news-item::before {
+            content: "•";
+            position: absolute;
+            left: -15px;
+            top: 5px;
+            color: var(--gradient-mid);
+            font-size: 24px;
+        }
+
+        .news-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-color);
+            line-height: 1.4;
+        }
+
+        .news-item .preview {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .news-item .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .read-original {
+            color: var(--gradient-end);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid var(--gradient-end);
+            transition: all 0.3s;
+            padding-bottom: 2px;
+        }
+
+        .read-original:hover {
+            color: var(--gradient-start);
+            border-bottom-color: var(--gradient-start);
+        }
+
+        .btn-refresh {
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 30px;
+            margin: 25px auto;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-refresh:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-explain {
+            background-color: transparent;
+            color: var(--gradient-end);
+            border: 1px solid var(--gradient-end);
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            padding: 6px 15px;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+
+        .btn-explain:hover {
+            background-color: var(--gradient-end);
+            color: white;
+        }
+
+        /* Newspaper columns */
+        @media (min-width: 992px) {
+            .news-columns {
+                column-count: 2;
+                column-gap: 40px;
+                column-rule: 1px solid var(--border-color);
+            }
+            
+            .news-source {
+                column-span: all;
+            }
+
+            .news-item::before {
+                left: -10px;
+            }
+        }
+
+        /* Modal styles */
+        .explanation-modal .modal-content {
+            font-family: 'Source Serif Pro', serif;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .explanation-modal .modal-header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px;
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .explanation-modal .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .explanation-modal .modal-body {
+            padding: 30px;
+            font-size: 17px;
+            line-height: 1.8;
+            background-color: white;
+        }
+
+        .explanation-modal .btn-close {
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+
+        /* Drop cap for first paragraph */
+        .news-item .preview::first-letter {
+            float: left;
+            font-size: 42px;
+            line-height: 36px;
+            padding-top: 4px;
+            padding-right: 8px;
+            padding-left: 3px;
+            font-family: 'Playfair Display', serif;
+            color: var(--gradient-start);
+        }
+
+        /* Alert styling */
+        .alert {
+            border-radius: 6px;
+            font-size: 16px;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Newspaper footer */
+        .newspaper-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-style: italic;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Decorative elements */
+        .corner-decoration {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 2px solid transparent;
+            border-image: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%) 1;
+            opacity: 0.3;
+        }
+
+        .top-left {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .top-right {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .bottom-left {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper-container">
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration top-right"></div>
+        <div class="newspaper">
+            <!-- Newspaper Header -->
+            <div class="newspaper-header">
+                <h1>Daily AI News</h1>
+                <div class="date">{{ current_date }}</div>
+                <div class="subheading">Understand AI, Understand Future</div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            {% if success %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ success }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+
+            {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+
+            <!-- Refresh Button -->
+            <form method="POST">
+                <input type="hidden" name="action" value="fetch_news">
+                <button type="submit" class="btn btn-refresh">
+                    Refresh AI News
+                </button>
+            </form>
+
+            <!-- News Content -->
+            <div class="news-columns">
+                {% if ai_news %}
+                    {% for source, articles in ai_news.items() %}
+                        <div class="news-source">{{ source }}</div>
+                        {% for article in articles %}
+                            <div class="news-item">
+                                <h3>{{ article.title }}</h3>
+                                <div class="preview">{{ article.preview }}</div>
+                                <div class="meta">
+                                    <a href="{{ article.url }}" target="_blank" class="read-original">
+                                        Read Original
+                                    </a>
+                                    <button type="button" 
+                                            class="btn btn-explain"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#explanationModal"
+                                            data-url="{{ article.url }}"
+                                            data-title="{{ article.title }}">
+                                        Explain with AI
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center">No AI news found. Click "Refresh AI News" to fetch the latest articles.</p>
+                {% endif %}
+            </div>
+
+            <div class="newspaper-footer">
+                Daily AI News &copy; {{ current_date.year }} - All Rights Reserved
+            </div>
+        </div>
+        <div class="corner-decoration bottom-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+    </div>
+
+    <!-- Explanation Modal -->
+    <div class="modal fade explanation-modal" id="explanationModal" tabindex="-1" aria-labelledby="explanationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="explanationModalLabel">AI Analysis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="explanationContent" class="explanation">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-3">Analyzing the article...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('explanationModal');
+            const explanationContent = document.getElementById('explanationContent');
+
+            modal.addEventListener('show.bs.modal', function(event) {
+                const button = event.relatedTarget;
+                const url = button.getAttribute('data-url');
+                const title = button.getAttribute('data-title');
+
+                // Update modal title
+                const modalTitle = modal.querySelector('.modal-title');
+                modalTitle.textContent = `AI Analysis: ${title}`;
+
+                // Fetch explanation from API
+                fetch('/api/explain', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ url: url })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        explanationContent.innerHTML = `
+                            <h4 style="color: var(--gradient-start); margin-bottom: 20px;">Key Insights</h4>
+                            <p style="margin-bottom: 25px;">${data.explanation}</p>
+                            <div style="border-top: 1px dashed #eee; padding-top: 15px; margin-top: 30px;">
+                                <small style="color: #666;">Analysis generated by AI on ${new Date().toLocaleDateString()}</small>
+                            </div>
+                        `;
+                    } else {
+                        explanationContent.innerHTML = `
+                            <div class="alert alert-danger" style="border-radius: 6px;">
+                                <strong>Error:</strong> ${data.message || 'Failed to analyze the article'}
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    explanationContent.innerHTML = `
+                        <div class="alert alert-danger" style="border-radius: 6px;">
+                            <strong>Error:</strong> ${error.message || 'Network error occurred'}
+                        </div>
+                    `;
+                });
+            });
+
+            // Clear content when modal is hidden
+            modal.addEventListener('hidden.bs.modal', function() {
+                explanationContent.innerHTML = `
+                    <div class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3">Analyzing the article...</p>
+                    </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
