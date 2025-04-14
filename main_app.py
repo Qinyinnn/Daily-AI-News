@@ -175,7 +175,7 @@ def is_ai_related(title, content):
     ai_keywords = [
         "artificial intelligence", "machine learning", "deep learning", 
         "chatgpt", "openai", "anthropic", "claude", "gemini", 
-        "large language model", "neural network", "agi", "deepseek"
+        "large language model", "neural network", "deepseek"
     ]
     
     # Combine title and content for searching, turning content to lower case to avoid case-sensitivity
@@ -450,31 +450,6 @@ def fetch_ai_news():
         print(f"{source}: {len(articles)} AI-related articles")
     
     return ai_articles
-
-"""
-Generate a dated news report file
-"""
-def generate_daily_report(content):
-    today = datetime.now().strftime("%Y-%m-%d")
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    directory = os.path.join(base_dir, "reports")
-    filename = os.path.join(directory, f"AI_News_Digest_{today}.txt")
-    
-    try:
-        # Create the directory if it doesn't exist
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        
-        with open(filename, 'w', encoding='utf-8') as f:
-            f.write(f"⭐ AI News Daily Digest - {today}\n\n")
-            f.write(content)
-        
-        print(f"Report saved to {filename}")
-        return filename
-    
-    except Exception as e:
-        print(f"Error saving report: {e}")
-        return None
 
 
 @app.route('/', methods=['GET', 'POST']) # allows both GET and POST HTTP methods
